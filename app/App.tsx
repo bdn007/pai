@@ -379,38 +379,9 @@ export default function App() {
           results had been seen. The separate table below shows held-out results from runs 3 and 4.
         </p>
         <div style={{overflowX: 'auto'}}>
-          <table style={{width: '100%', minWidth: 560, borderCollapse: 'collapse', fontSize: 16}}>
-            <caption style={{textAlign: 'left', padding: '8px 0'}}>
-              Top property and training estimate for each run included in the average
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col" style={{textAlign: 'left', padding: 8, borderBottom: '2px solid #355c8a'}}>Run</th>
-                <th scope="col" style={{textAlign: 'right', padding: 8, borderBottom: '2px solid #355c8a'}}>Seed</th>
-                <th scope="col" style={{textAlign: 'left', padding: 8, borderBottom: '2px solid #355c8a'}}>Top property</th>
-                <th scope="col" style={{textAlign: 'right', padding: 8, borderBottom: '2px solid #355c8a'}}>Training estimate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.runs.map(run => (
-                <tr key={run.seed}>
-                  <th scope="row" style={{textAlign: 'left', padding: 8, borderBottom: '1px solid #b8c5d6'}}>
-                    {run.number}
-                  </th>
-                  <td style={{textAlign: 'right', padding: 8, borderBottom: '1px solid #b8c5d6'}}>{run.seed}</td>
-                  <td style={{padding: 8, borderBottom: '1px solid #b8c5d6'}}>{run.ranked[0].name}</td>
-                  <td style={{textAlign: 'right', padding: 8, borderBottom: '1px solid #b8c5d6'}}>
-                    {(run.ranked[0].probability * 100).toFixed(2)}%
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div style={{overflowX: 'auto'}}>
           <table style={{width: '100%', minWidth: 680, borderCollapse: 'collapse', fontSize: 16}}>
             <caption style={{textAlign: 'left', padding: '8px 0'}}>
-            Held-out results from corrected runs 3 and 4 (not used in the average)
+              Held-out results from corrected runs 3 and 4 (not used in the average)
             </caption>
             <thead>
               <tr>
@@ -457,6 +428,35 @@ export default function App() {
           Higher test scores are better. The test counts were not used to estimate the training
           probabilities.
         </p>
+        <div style={{overflowX: 'auto'}}>
+          <table style={{width: '100%', minWidth: 560, borderCollapse: 'collapse', fontSize: 16}}>
+            <caption style={{textAlign: 'left', padding: '8px 0'}}>
+              Top property and training estimate for each run included in the average
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col" style={{textAlign: 'left', padding: 8, borderBottom: '2px solid #355c8a'}}>Run</th>
+                <th scope="col" style={{textAlign: 'right', padding: 8, borderBottom: '2px solid #355c8a'}}>Seed</th>
+                <th scope="col" style={{textAlign: 'left', padding: 8, borderBottom: '2px solid #355c8a'}}>Top property</th>
+                <th scope="col" style={{textAlign: 'right', padding: 8, borderBottom: '2px solid #355c8a'}}>Training estimate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.runs.map(run => (
+                <tr key={run.seed}>
+                  <th scope="row" style={{textAlign: 'left', padding: 8, borderBottom: '1px solid #b8c5d6'}}>
+                    {run.number}
+                  </th>
+                  <td style={{textAlign: 'right', padding: 8, borderBottom: '1px solid #b8c5d6'}}>{run.seed}</td>
+                  <td style={{padding: 8, borderBottom: '1px solid #b8c5d6'}}>{run.ranked[0].name}</td>
+                  <td style={{textAlign: 'right', padding: 8, borderBottom: '1px solid #b8c5d6'}}>
+                    {(run.ranked[0].probability * 100).toFixed(2)}%
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <p style={{fontSize: 16, marginTop: 24}}>
