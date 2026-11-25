@@ -42,3 +42,4 @@
 - The student asked to add a dog, top hat and thimble tokens, buildings and banknotes. AI drew original, generic SVG icons in the editable source and app thumbnail, and updated the image alternative text.
 - The student asked to remove the thumbnail from the website. AI removed the thumbnail image and its app import while leaving the SVG source file in the project.
 - The student asked for a small Piper program to turn multiple text inputs into numbered WAV files. AI created `piper-batch.sh`, which accepts one quoted text per argument and writes `speech01.wav`, `speech02.wav`, and so on in the current folder.
+- The student asked how to publish the project with GitHub Actions. AI added a build script and a GitHub Pages workflow to build the Vite preview and deploy the `dist` folder.
