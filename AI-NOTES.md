@@ -1,0 +1,44 @@
+# AI notes
+
+- The student chose this project question: "Which Monopoly properties are landed on most often?"
+- The student guessed before seeing the data: "Go" is landed on most often.
+- The student chose to answer using only purchasable property spaces, excluding special squares.
+- The student chose a binomial count model: count visits to each purchasable property across turns.
+- The student chose simulated Monopoly turns as the data source.
+- The student chose to lock away 20% of simulated turns as the test set.
+- The student chose full basic rules, including dice, card effects, and Jail.
+- The student chose the observed fraction of turns as each property's probability estimate.
+- AI built the first simulation and app; it uses 50,000 seeded turns, with the first 40,000 for fitting and the final 10,000 locked as the test set.
+- AI drafted the 60-second video script from the project question, model, chart, and locked test-set results.
+- AI added the thumbnail-template.png as a webpage image in app/monopoly-thumbnail.png.
+- The student requested the SVG thumbnail title: "Old Camel’s Monopoly Lab"; AI placed it across the two existing title lines using an ASCII apostrophe in the SVG.
+- The student requested the SVG thumbnail subtitle: "50,000 simulated turns to find the most-landed properties".
+- AI broke the SVG thumbnail subtitle into two lines to keep it clear of the pink circle.
+- AI removed the “1:00 badge” text and placeholder rectangle from the lower-right corner of the SVG thumbnail.
+- The student asked to remove the “your picture” placeholder text from the pink circle; AI removed it.
+- The student asked to place thumbnail/camel.svg in the pink circle; AI centered it and updated the webpage to display the finished SVG thumbnail.
+- The student clarified that the camel artwork should be layered above the thumbnail design; AI moved its SVG image element to the top drawing layer.
+- The student could not see the camel in the webpage thumbnail because nested image links are not rendered inside SVGs used as images; AI embedded the camel's vector paths directly in the thumbnail SVG and synced the self-contained result to app/.
+- The student asked about LaTeX after bolding p; AI used KaTeX to display the binomial model and the observed-fraction parameter estimate, with plain-language definitions.
+- The student reported the chart's vertical-axis label was clipped; AI increased the chart's left spacing and y-axis width.
+- AI placed the vertical-axis label in its own chart-side column after the SVG axis version remained clipped in the preview.
+- The student asked to raise the chart label and bring it closer to the y-axis; AI aligned it with the plot area and reduced the axis gap.
+- The student reported the first x-axis property label was clipped; AI added horizontal padding to the category axis.
+- The student requested the local preview page title "Old Camel's Monopoly Lab"; AI updated the HTML document title.
+- The student revised the pre-run guess for a second simulation to Connecticut Avenue. AI reran the model with fresh seed 2027 and labeled this as a second run after the first results had been seen.
+- For the second run, the app estimated B. & O. Railroad highest at 3.06%; it appeared 297 times in the locked test set. AI updated the video script to report these results and the revised guess honestly.
+- After B. & O. Railroad ranked first again, the student requested a code review. AI identified and corrected errors in Chance railroad/utility destinations, movement into Community Chest, and Jail transitions. The student chose to exclude runs 1 and 2 and run a corrected third simulation; seed 2028 ranked Illinois Avenue first at 3.00%, with 286 appearances in the held-out rolls.
+- The student requested another run to see whether Illinois Avenue stays first. AI used fresh seed 2029 for a corrected fourth run; earlier results had already been seen.
+- In the corrected fourth run, Illinois Avenue remained first at 3.08%, with 294 appearances in the held-out rolls. AI updated the video script and sources to match.
+- The student chose to report corrected runs 3 and 4, while disclosing that runs 1 and 2 were excluded due to movement bugs. AI added a comparison table to the app and updated the video and sources.
+- The student requested corrected run 5 for reference only. With seed 2030, B. & O. Railroad ranked first at 3.09% (297 appearances in 10,000 test rolls), while Illinois Avenue ranked third at 2.99%; this run is excluded from the app and final video results.
+- The student requested ten more corrected simulations for reference only, using seeds 2031–2040. Illinois Avenue ranked first in 8 runs, Tennessee Avenue in 1, and B. & O. Railroad in 1; B. & O. ranked in the top three in all ten. The student later chose to include these runs in the average graph.
+- The student chose to replace the run-4-only graph with average training probabilities across 12 corrected runs (seeds 2028, 2029, 2031–2040), keeping seed 2030 reference-only. AI updated the graph to use training rolls only and preserved the test table for runs 3 and 4.
+- AI changed the app chart and video script to report the 12-run training average, which places Illinois Avenue first at 3.01%. AI kept the run 3 and 4 test results separate and noted that the binomial model simplifies dependence between consecutive board positions.
+- The student asked to update the corrected-run results section and chose a table listing the top property and training estimate for each of the 12 included runs. AI added it while keeping the held-out results for runs 3 and 4 separate.
+- The student clarified that they want credit for requesting the movement-code review and choosing to exclude the invalid runs, not for independently identifying the specific bugs. AI updated the app and video script to make that attribution clear.
+- The student chose a subtle Monopoly-board-style thumbnail background. AI added a low-contrast, generic property-space loop to the source and app thumbnail without copying official board artwork.
+- The student asked to update the thumbnail because the project now includes 12 simulations. AI changed its caption from 50,000 simulated turns to 600,000 simulated rolls in both the editable source and app image.
+- The student asked to add a dog, top hat and thimble tokens, buildings and banknotes. AI drew original, generic SVG icons in the editable source and app thumbnail, and updated the image alternative text.
+- The student asked to remove the thumbnail from the website. AI removed the thumbnail image and its app import while leaving the SVG source file in the project.
+- The student asked for a small Piper program to turn multiple text inputs into numbered WAV files. AI created `piper-batch.sh`, which accepts one quoted text per argument and writes `speech01.wav`, `speech02.wav`, and so on in the current folder.
