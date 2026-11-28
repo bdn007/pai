@@ -9,3 +9,4 @@ link), and its license. Your agent should add to this as you go.
 | Corrected run 4: 50,000 simulated Monopoly dice rolls | Generated locally by app/App.tsx with fixed seed 2029; training rolls are included in the 12-run average, while test rolls are shown separately; not observed gameplay | none |
 | Reference run 5: 50,000 simulated Monopoly dice rolls | Generated locally with the corrected simulation and fixed seed 2030; reference only, not included in the reported results | none |
 | Corrected runs 6–15: 10 × 50,000 simulated Monopoly dice rolls | Generated locally with the corrected simulation and seeds 2031–2040; included in the 12-run training-probability average | none |
+| Monopoly board space names and arrangement | Adapted from [Wikipedia contributors, "Template:Monopoly board detail"](https://en.wikipedia.org/wiki/Template:Monopoly_board_detail) | CC BY-SA 4.0; adapted text and arrangement, no official board artwork used |

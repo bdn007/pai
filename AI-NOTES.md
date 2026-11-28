@@ -44,3 +44,6 @@
 - The student asked for a small Piper program to turn multiple text inputs into numbered WAV files. AI created `piper-batch.sh`, which accepts one quoted text per argument and writes `speech01.wav`, `speech02.wav`, and so on in the current folder.
 - The student asked how to publish the project with GitHub Actions. AI added a build script and a GitHub Pages workflow to build the Vite preview and deploy the `dist` folder.
 - The student asked to show held-out results for runs 3 and 4 before the table of 12 runs. AI reordered the tables in the results section.
+- The student asked for a Monopoly board inspired by Wikipedia's board-detail template. AI added a text-and-color board with each space's average end-of-turn share from the existing 12 simulated runs, and cited the reference in the app and SOURCES.md; no official board artwork was used.
+- The student asked for a line below the title identifying this as Old Camel's Final Project for the Probability for AI course; AI added it, then set it in italic 16px text with no gap below the title.
+- The student asked to add the month and year; AI placed "November 2026" below the project subtitle and before the introduction.

@@ -60,6 +60,30 @@ const board: BoardSpace[] = [
 const properties = board
   .map((space, index) => ({...space, index}))
   .filter(space => space.purchasable);
+const propertyBandColors: Record<number, string> = {
+  1: '#8d5b3e',
+  3: '#8d5b3e',
+  6: '#8dc4dc',
+  8: '#8dc4dc',
+  9: '#8dc4dc',
+  11: '#d77baf',
+  13: '#d77baf',
+  14: '#d77baf',
+  16: '#ed9b42',
+  18: '#ed9b42',
+  19: '#ed9b42',
+  21: '#cc5651',
+  23: '#cc5651',
+  24: '#cc5651',
+  26: '#dfc34d',
+  27: '#dfc34d',
+  29: '#dfc34d',
+  31: '#5f9e75',
+  32: '#5f9e75',
+  34: '#5f9e75',
+  37: '#477bb5',
+  39: '#477bb5',
+};
 const averageRuns = [
   {number: 3, seed: 2028},
   {number: 4, seed: 2029},
@@ -74,6 +98,157 @@ const averageRuns = [
   {number: 14, seed: 2039},
   {number: 15, seed: 2040},
 ] as const;
+
+function boardPosition(index: number) {
+  if (index === 0) return {gridRow: '12 / 14', gridColumn: '12 / 14'};
+  if (index === 10) return {gridRow: '12 / 14', gridColumn: '1 / 3'};
+  if (index === 20) return {gridRow: '1 / 3', gridColumn: '1 / 3'};
+  if (index === 30) return {gridRow: '1 / 3', gridColumn: '12 / 14'};
+  if (index < 10) {
+    const column = 12 - index;
+    return {gridRow: '12 / 14', gridColumn: `${column} / ${column + 1}`};
+  }
+  if (index < 20) {
+    const row = 22 - index;
+    return {gridRow: `${row} / ${row + 1}`, gridColumn: '1 / 3'};
+  }
+  if (index < 30) {
+    const column = index - 18;
+    return {gridRow: '1 / 3', gridColumn: `${column} / ${column + 1}`};
+  }
+  const row = index - 28;
+  return {gridRow: `${row} / ${row + 1}`, gridColumn: '12 / 14'};
+}
+
+function MonopolyBoard({
+  averageProbabilities,
+  mostVisited,
+}: {
+  averageProbabilities: number[];
+  mostVisited: {name: string; probability: number};
+}) {
+  return (
+    <section aria-labelledby="board-title" style={{marginTop: 24}}>
+      <h2 id="board-title" style={{fontSize: 24}}>The 40-space board</h2>
+      <p>
+        Each square shows its average share of turns ending there in the 12 simulated runs. The
+        colored bands identify property groups.
+      </p>
+      <div style={{overflowX: 'auto', padding: '4px 0'}}>
+        <div
+          role="group"
+          aria-label="Monopoly board with the average simulated end-of-turn position share shown on each of its 40 spaces"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(13, minmax(0, 1fr))',
+            gridTemplateRows: 'repeat(13, minmax(0, 1fr))',
+            gap: 2,
+            width: '100%',
+            minWidth: 832,
+            aspectRatio: '1 / 1',
+            padding: 2,
+            boxSizing: 'border-box',
+            background: '#17233b',
+            border: '2px solid #17233b',
+            borderRadius: 12,
+          }}
+        >
+          <div
+            style={{
+              gridRow: '3 / 12',
+              gridColumn: '3 / 12',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 14,
+              padding: 20,
+              textAlign: 'center',
+              background: '#f5f2e8',
+              borderRadius: 4,
+            }}
+          >
+            <div style={{fontSize: 16, fontWeight: 700, letterSpacing: 2, color: '#355c8a'}}>
+              12 SIMULATED RUNS
+            </div>
+            <div style={{fontSize: 32, fontWeight: 800, letterSpacing: 2}}>MONOPOLY</div>
+            <p style={{fontSize: 16, margin: 0}}>
+              Average end-of-turn position share across 480,000 training turns
+            </p>
+            <div
+              style={{
+                border: '2px solid #355c8a',
+                borderRadius: 10,
+                padding: '12px 20px',
+                background: '#fff',
+              }}
+            >
+              <div style={{fontSize: 16, fontWeight: 700, color: '#355c8a'}}>
+                TOP PURCHASABLE PROPERTY
+              </div>
+              <div style={{fontSize: 20, fontWeight: 700, marginTop: 4}}>
+                {mostVisited.name} — {(mostVisited.probability * 100).toFixed(2)}%
+              </div>
+            </div>
+            <p style={{fontSize: 16, margin: 0}}>
+              Pale squares are special spaces; colored bands mark property groups.
+            </p>
+          </div>
+          {board.map((space, index) => {
+            const isCorner = [0, 10, 20, 30].includes(index);
+            const isHorizontal = index <= 10 || (index >= 20 && index <= 30);
+            const bandColor = propertyBandColors[index];
+            const probability = averageProbabilities[index];
+
+            return (
+              <div
+                key={`${index}-${space.name}`}
+                role="group"
+                aria-label={`${space.name}: ${(probability * 100).toFixed(2)}% average simulated end-of-turn share`}
+                style={{
+                  ...boardPosition(index),
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 4,
+                  minWidth: 0,
+                  minHeight: 0,
+                  overflow: 'hidden',
+                  padding: isCorner ? 8 : 4,
+                  boxSizing: 'border-box',
+                  background: isCorner ? '#e9edf3' : '#fff',
+                  color: '#17233b',
+                  textAlign: 'center',
+                  lineHeight: 1.1,
+                  borderRadius: 2,
+                  ...(bandColor
+                    ? {
+                        [isHorizontal ? 'borderTop' : 'borderLeft']: `10px solid ${bandColor}`,
+                      }
+                    : {}),
+                }}
+              >
+                <span style={{fontSize: 16, fontWeight: isCorner ? 700 : 600}}>
+                  {space.name}
+                </span>
+                <span style={{fontSize: 16}}>{(probability * 100).toFixed(2)}%</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <p style={{fontSize: 16}}>
+        Board layout reference:{' '}
+        <a href="https://en.wikipedia.org/wiki/Template:Monopoly_board_detail">
+          Wikipedia’s Monopoly board detail template
+        </a>
+        , adapted under CC BY-SA 4.0. The board graphic is text and color; no official board artwork is used.
+      </p>
+    </section>
+  );
+}
 
 function seededRandom(seed: number) {
   let state = seed >>> 0;
@@ -250,6 +425,9 @@ export default function App() {
       number,
     }));
     const totalTrainingRolls = runs.reduce((sum, run) => sum + run.trainingRolls, 0);
+    const averageProbabilities = board.map((_, index) =>
+      runs.reduce((sum, run) => sum + run.trainingCounts[index], 0) / totalTrainingRolls,
+    );
     const averageRanked = properties
       .map(property => {
         const count = runs.reduce((sum, run) => sum + run.trainingCounts[property.index], 0);
@@ -258,6 +436,7 @@ export default function App() {
       .sort((a, b) => b.probability - a.probability);
 
     return {
+      averageProbabilities,
       averageRanked,
       runs,
       run3: runs[0],
@@ -281,14 +460,25 @@ export default function App() {
         color: '#17233b',
       }}
     >
-      <h1 style={{fontSize: 32}}>Which Monopoly properties are landed on most often?</h1>
+      <h1 style={{fontSize: 32, marginBottom: 0}}>
+        Which Monopoly properties are landed on most often?
+      </h1>
+      <p style={{fontSize: 16, fontStyle: 'italic', margin: '0 0 1em'}}>
+        Old Camel's Final Project for the Probability for AI course
+      </p>
+      <p style={{fontSize: 16, margin: '0 0 1em'}}>November 2026</p>
       <p>
         Before the first run, my guess was <strong>Go</strong>, but Go is not purchasable and was
         excluded. After seeing that run's results, my revised guess for the second run was{' '}
-        <strong>Connecticut Avenue</strong>. After B. & O. Railroad ranked first again, I asked AI
-        to review the simulation. The review found movement bugs, and I chose to exclude runs 1 and
-        2.
+        <strong>Connecticut Avenue</strong>. When <strong>B. &amp; O. Railroad</strong> ranked first
+        again, I asked AI to review the simulation. The review found movement bugs, and I chose to
+        exclude runs 1 and 2.
       </p>
+
+      <MonopolyBoard
+        averageProbabilities={result.averageProbabilities}
+        mostVisited={result.averageRanked[0]}
+      />
 
       <section style={{border: '2px solid #355c8a', borderRadius: 12, padding: 16, marginTop: 20}}>
         <h2 style={{fontSize: 24}}>Model story</h2>
